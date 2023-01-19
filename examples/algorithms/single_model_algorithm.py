@@ -136,12 +136,12 @@ class SingleModelAlgorithm(GroupAlgorithm):
         assert self.is_training
 
         # process this batch
-        results = self.process_batch(batch, unlabeled_batch)
+        results = self.process_batch(batch)#, unlabeled_batch)
 
         # update running statistics and update model if we've reached end of effective batch
         self._update(
-            results,
-            should_step=(((self.batch_idx + 1) % self.gradient_accumulation_steps == 0) or (is_epoch_end))
+            results#,
+            # should_step=(((self.batch_idx + 1) % self.gradient_accumulation_steps == 0) or (is_epoch_end))
         )
         self.update_log(results)
 

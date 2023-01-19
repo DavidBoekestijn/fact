@@ -294,9 +294,9 @@ def save_pred(y_pred, path_prefix):
 
 def get_replicate_str(dataset, config):
     if dataset['dataset'].dataset_name == 'poverty':
-        replicate_str = f"fold:{config.dataset_kwargs['fold']}"
+        replicate_str = f"fold_{config.dataset_kwargs['fold']}"
     else:
-        replicate_str = f"seed:{config.seed}"
+        replicate_str = f"seed_{config.seed}"
     return replicate_str
 
 def get_pred_prefix(dataset, config):
@@ -305,7 +305,7 @@ def get_pred_prefix(dataset, config):
     replicate_str = get_replicate_str(dataset, config)
     prefix = os.path.join(
         config.log_dir,
-        f"{dataset_name}_split:{split}_{replicate_str}_")
+        f"{dataset_name}_split_{split}_{replicate_str}_")
     return prefix
 
 def get_model_prefix(dataset, config):

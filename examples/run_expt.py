@@ -268,7 +268,7 @@ def main():
             if not config.teacher_model_path.endswith(".pth"):
                 # Use the best model
                 config.teacher_model_path = os.path.join(
-                    config.teacher_model_path,  f"{config.dataset}_seed:{config.seed}_epoch:best_model.pth"
+                    config.teacher_model_path,  f"{config.dataset}_seed_{config.seed}_epoch_best_model.pth"
                 )
 
             d_out = infer_d_out(full_dataset, config)
@@ -408,14 +408,14 @@ def main():
         # Resume from most recent model in log_dir
         resume_success = False
         if resume:
-            save_path = model_prefix + 'epoch:last_model.pth'
+            save_path = model_prefix + 'epoch_last_model.pth'
             if not os.path.exists(save_path):
                 epochs = [
-                    int(file.split('epoch:')[1].split('_')[0])
+                    int(file.split('epoch_')[1].split('_')[0])
                     for file in os.listdir(config.log_dir) if file.endswith('.pth')]
                 if len(epochs) > 0:
                     latest_epoch = max(epochs)
-                    save_path = model_prefix + f'epoch:{latest_epoch}_model.pth'
+                    save_path = model_prefix + f'epoch_{latest_epoch}_model.pth'
             try:
                 prev_epoch, best_val_metric = load(algorithm, save_path, device=config.device)
                 epoch_offset = prev_epoch + 1
@@ -448,9 +448,9 @@ def main():
         )
     else:
         if config.eval_epoch is None:
-            eval_model_path = model_prefix + 'epoch:best_model.pth'
+            eval_model_path = model_prefix + 'epoch_best_model.pth'
         else:
-            eval_model_path = model_prefix +  f'epoch:{config.eval_epoch}_model.pth'
+            eval_model_path = model_prefix +  f'epoch_{config.eval_epoch}_model.pth'
         best_epoch, best_val_metric = load(algorithm, eval_model_path, device=config.device)
         if config.eval_epoch is None:
             epoch = best_epoch
