@@ -23,6 +23,8 @@ additional_datasets = [
     'sqf',
     'encode',
     'noisy_2feature',
+    'rot_simple',
+    'spu_2feature',
 ]
 
 supported_datasets = benchmark_datasets + additional_datasets

@@ -143,3 +143,12 @@ def get_dataset(dataset: str, version: Optional[str] = None, unlabeled: bool = F
     elif dataset == 'noisy_2feature':
         from wilds.datasets.noisy_simple_dataset import NoisySimpleDataset
         return NoisySimpleDataset(**dataset_kwargs)
+
+    elif dataset == 'spu_2feature':
+        from wilds.datasets.spu_simple_dataset import SpuSimpleDataset
+        return SpuSimpleDataset(**dataset_kwargs)
+
+    elif dataset == 'rot_simple':
+        from wilds.datasets.rot_simple_dataset import RotSimpleDataset
+        return RotSimpleDataset(**dataset_kwargs)
+

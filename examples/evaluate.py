@@ -115,7 +115,11 @@ def evaluate_benchmark(
             return ["detection_acc_avg_dom"]
         elif "rxrx1" == dataset_name:
             return ["acc_avg"]
-        if "noisy_2feature" == dataset_name:
+        elif "noisy_2feature" == dataset_name:
+            return ["acc_avg"]
+        elif "rot_simple" == dataset_name:
+            return ["acc_avg"]
+        elif "spu_2feature" == dataset_name:
             return ["acc_avg"]
         else:
             raise ValueError(f"Invalid dataset: {dataset_name}")
