@@ -450,7 +450,23 @@ dataset_defaults = {
         },
         'process_outputs_function': None,
         'process_pseudolabels_function': 'pseudolabel_detection_discard_empty',
-    }
+    },
+    'noisy_2feature': {
+        'split_scheme': 'official',
+        'model': 'logistic_regression',
+        'loss_function': 'cross_entropy',
+        'optimizer': 'SGD',
+        'model_kwargs': {'in_features': 2},
+        'algo_log_metric': 'accuracy',
+        'val_metric': 'loss_all',
+        'val_metric_decreasing': False,
+        'batch_size': 8,
+        'lr': 0.1,
+        'weight_decay': 0,
+        'n_epochs': 400,
+        'n_groups_per_batch': 3,
+        'groupby_fields': ['group'],
+    },
 }
 
 ##########################################

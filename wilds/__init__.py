@@ -21,7 +21,8 @@ additional_datasets = [
     'yelp',
     'bdd100k',
     'sqf',
-    'encode'
+    'encode',
+    'noisy_2feature',
 ]
 
 supported_datasets = benchmark_datasets + additional_datasets

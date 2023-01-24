@@ -139,3 +139,7 @@ def get_dataset(dataset: str, version: Optional[str] = None, unlabeled: bool = F
     elif dataset == 'globalwheat':
         from wilds.datasets.globalwheat_dataset import GlobalWheatDataset
         return GlobalWheatDataset(version=version, **dataset_kwargs)
+
+    elif dataset == 'noisy_2feature':
+        from wilds.datasets.noisy_simple_dataset import NoisySimpleDataset
+        return NoisySimpleDataset(**dataset_kwargs)
