@@ -499,6 +499,25 @@ dataset_defaults = {
         'n_groups_per_batch': 3,
         'groupby_fields': ['group'],
     },
+    'cmnist': {
+        'split_scheme': 'official',
+        'model': 'resnet50',
+        'model_kwargs': {'pretrained': True},
+        'transform': 'image_base',
+        'loss_function': 'cross_entropy',
+        'groupby_fields': ['group', 'y'],
+        'val_metric': 'acc_wg',
+        'val_metric_decreasing': False,
+        'optimizer': 'SGD',
+        'optimizer_kwargs': {'momentum': 0.9},
+        'scheduler': None,
+        'batch_size': 64,
+        'lr': 0.001,
+        'weight_decay': 0.0,
+        'n_epochs': 200,
+        'algo_log_metric': 'accuracy',
+        'process_outputs_function': 'multiclass_logits_to_pred',
+    }
 }
 
 ##########################################

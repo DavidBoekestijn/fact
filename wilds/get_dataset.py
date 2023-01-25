@@ -152,3 +152,7 @@ def get_dataset(dataset: str, version: Optional[str] = None, unlabeled: bool = F
         from wilds.datasets.rot_simple_dataset import RotSimpleDataset
         return RotSimpleDataset(**dataset_kwargs)
 
+    elif dataset == 'cmnist':
+        from wilds.datasets.cmnist_debug_dataset import CMNISTDDataset
+        return CMNISTDDataset(**dataset_kwargs)
+

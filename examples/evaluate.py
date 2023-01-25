@@ -121,6 +121,8 @@ def evaluate_benchmark(
             return ["acc_avg"]
         elif "spu_2feature" == dataset_name:
             return ["acc_avg"]
+        elif "cminst" == dataset_name:
+            return ["acc_avg"]
         else:
             raise ValueError(f"Invalid dataset: {dataset_name}")
 
