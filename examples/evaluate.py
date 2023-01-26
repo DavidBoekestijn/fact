@@ -123,6 +123,8 @@ def evaluate_benchmark(
             return ["acc_avg"]
         elif "cminst" == dataset_name:
             return ["acc_avg"]
+        elif "rot_5group" == dataset_name:
+            return ["acc_avg"]
         else:
             raise ValueError(f"Invalid dataset: {dataset_name}")
 
