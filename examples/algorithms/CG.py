@@ -103,7 +103,7 @@ class CG(SingleModelAlgorithm):
         else:
             return list(self.model.parameters())  
     
-    def _update(self, results):
+    def _update(self, results, should_step=True):
         """
         Process the batch, update the log, and update the model, group weights, and scheduler.
         Args:
@@ -155,4 +155,4 @@ class CG(SingleModelAlgorithm):
             
         results['group_alpha'] = self.rwt.detach().cpu()
         # update model
-        super()._update(results)
+        super()._update(results, should_step=should_step)

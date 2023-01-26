@@ -140,8 +140,8 @@ class SingleModelAlgorithm(GroupAlgorithm):
 
         # update running statistics and update model if we've reached end of effective batch
         self._update(
-            results#,
-            # should_step=(((self.batch_idx + 1) % self.gradient_accumulation_steps == 0) or (is_epoch_end))
+            results,
+            should_step=(((self.batch_idx + 1) % self.gradient_accumulation_steps == 0) or (is_epoch_end))
         )
         self.update_log(results)
 
@@ -174,7 +174,7 @@ class SingleModelAlgorithm(GroupAlgorithm):
                 is_epoch=False,
                 metrics=self.log_dict,
                 log_access=False)
-            self.model.zero_grad()
+            self.model.zero_grad
 
     def save_metric_for_logging(self, results, metric, value):
         if isinstance(value, torch.Tensor):
