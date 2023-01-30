@@ -27,6 +27,8 @@ additional_datasets = [
     'spu_2feature',
     'cmnist',
     'rot_5group',
+    'noisy_5group',
+    'spu_5group',
 ]
 
 supported_datasets = benchmark_datasets + additional_datasets

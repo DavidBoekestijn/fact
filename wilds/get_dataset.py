@@ -156,6 +156,14 @@ def get_dataset(dataset: str, version: Optional[str] = None, unlabeled: bool = F
         from wilds.datasets.rot_5group_dataset import Rot5GroupDataset
         return Rot5GroupDataset(**dataset_kwargs)
 
+    elif dataset == 'noisy_5group':
+        from wilds.datasets.noisy_5group_dataset import Noisy5GroupDataset
+        return Noisy5GroupDataset(**dataset_kwargs)
+
+    elif dataset == 'spu_5group':
+        from wilds.datasets.spu_5group_dataset import Spu5GroupDataset
+        return Spu5GroupDataset(**dataset_kwargs)
+
     elif dataset == 'cmnist':
         from wilds.datasets.cmnist_debug_dataset import CMNISTDDataset
         return CMNISTDDataset(**dataset_kwargs)

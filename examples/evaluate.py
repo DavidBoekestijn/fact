@@ -125,6 +125,10 @@ def evaluate_benchmark(
             return ["acc_avg"]
         elif "rot_5group" == dataset_name:
             return ["acc_avg"]
+        elif "noisy_5group" == dataset_name:
+            return ["acc_avg"]
+        elif "spu_5group" == dataset_name:
+            return ["acc_avg"]
         else:
             raise ValueError(f"Invalid dataset: {dataset_name}")
 
