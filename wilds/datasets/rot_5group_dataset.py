@@ -4,6 +4,8 @@ from PIL import Image
 import pandas as pd
 import pickle
 from torchvision import datasets
+import matplotlib.pyplot as plt
+
 
 import numpy as np
 from wilds.datasets.wilds_dataset import WILDSDataset
@@ -25,9 +27,8 @@ def make_environment(num, frac, train=True):
     Y5 = ((np.cos(4*angle))*X[:, 0] + (np.sin(4*angle))*X[:, 1] > 0).type(torch.float32)
 
     _Y = torch.where(gs==4, Y5, Y4)
-    _Y = torch.where(gs==3, Y3, _Y)
-    _Y = torch.where(gs==2, Y2, _Y)
-    _Y = torch.where(gs==1, Y2, Y3)
+    _Y = torch.where(gs==2, Y3, _Y)
+    _Y = torch.where(gs==1, Y2, _Y)
     Y = torch.where(gs==0, Y1, _Y)
     print (X[:10], Y[:10], gs[:10])
     print ("label stats:", np.unique(Y.numpy(), return_counts=True))
@@ -102,6 +103,16 @@ class Rot5GroupDataset(WILDSDataset):
             y_pred, y_true, metadata)
     
 if __name__ == '__main__':
+    os.chdir("..\\..\\examples")
     dset = Rot5GroupDataset('data')
     train, val, test = dset.get_subset('train'), dset.get_subset('val'), dset.get_subset('test')
-    print ("Train, val, test sizes:", len(train), len(val), len(test))
+    train, val, test = dset.get_subset('train'), dset.get_subset('val'), dset.get_subset('test')
+    print("Train, val, test sizes:", len(train), len(val), len(test))
+    fig, axes = plt.subplots(5, 1)
+    fig.set_size_inches(10, 50)
+    for i in range(len(train)):
+        item = train.__getitem__(i)
+        color = 'red' if item[1].item() == 0 else 'blue'
+        axes[item[2][0].item()].plot(item[0][0], item[0][1], marker='o', markerfacecolor=color, markeredgecolor=color)
+    fig.tight_layout()
+    plt.show()

@@ -4,6 +4,8 @@ from PIL import Image
 import pandas as pd
 import pickle
 from torchvision import datasets
+import matplotlib.pyplot as plt
+
 
 import numpy as np
 from wilds.datasets.wilds_dataset import WILDSDataset
@@ -107,6 +109,15 @@ class Noisy5GroupDataset(WILDSDataset):
             y_pred, y_true, metadata)
 
 if __name__ == '__main__':
+    os.chdir("..\\..\\examples")
     dset = Noisy5GroupDataset('data')
     train, val, test = dset.get_subset('train'), dset.get_subset('val'), dset.get_subset('test')
     print("Train, val, test sizes:", len(train), len(val), len(test))
+    fig, axes = plt.subplots(5, 1)
+    fig.set_size_inches(10, 50)
+    for i in range(len(train)):
+        item = train.__getitem__(i)
+        color = 'red' if item[1].item() == 0 else 'blue'
+        axes[item[2][0].item()].plot(item[0][0], item[0][1], marker='o', markerfacecolor=color, markeredgecolor=color)
+    fig.tight_layout()
+    plt.show()
