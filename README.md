@@ -57,13 +57,31 @@ elif dataset == 'cmnist':
 
 ### Qualitative Analysis
 
-1. Similar to the case of C-MNIST, references were added to [get_dataset.py](wilds/get_dataset.py).
+ 1. Create a folder with the dataset name in ```examples/data```.
+ 2. In [evaluate.py](examples/evaluate.py) add the following code in ```get_metrics()```.
+ ```python
+ elif "noisy_2feature" == dataset_name:
+  return ["acc_avg"]
+ elif "rot_simple" == dataset_name:
+  return ["acc_avg"]
+elif "spu_2feature" == dataset_name:
+  return ["acc_avg"]
+```
+
+ 3. Add the name of the datasets in ```additional_datasets = []``` in [init.py](wilds/__init__.py).
+```python
+'noisy_2feature',
+'rot_simple',
+'spu_2feature'
+ ```
+ 
+ 4. Add references in [get_dataset.py](wilds/get_dataset.py).
 ```python
 elif dataset == 'noisy_2feature':
   from wilds.datasets.noisy_simple_dataset import NoisySimpleDataset
   return NoisySimpleDataset(**dataset_kwargs)
 
- elif dataset == 'spu_2feature':
+elif dataset == 'spu_2feature':
   from wilds.datasets.spu_simple_dataset import SpuSimpleDataset
   return SpuSimpleDataset(**dataset_kwargs)
 
@@ -72,17 +90,146 @@ elif dataset == 'rot_simple':
   return RotSimpleDataset(**dataset_kwargs)
  ```
  
+ 5. Add parameters for the datasets in [datasets.py](examples/configs/datasets.py):
+ ```python 
+    'noisy_2feature': {
+        'split_scheme': 'official',
+        'model': 'logistic_regression',
+        'loss_function': 'cross_entropy',
+        'optimizer': 'SGD',
+        'model_kwargs': {'in_features': 3},
+        'algo_log_metric': 'accuracy',
+        'val_metric': 'loss_all',
+        'val_metric_decreasing': False,
+        'batch_size': 64,
+        'lr': 0.1,
+        'weight_decay': 0,
+        'n_epochs': 400,
+        'n_groups_per_batch': 3,
+        'groupby_fields': ['group'],
+    },
+ ```
+ 
+ ```python
+ 'rot_simple': {
+        'split_scheme': 'official',
+        'model': 'logistic_regression',
+        'loss_function': 'cross_entropy',
+        'optimizer': 'SGD',
+        'model_kwargs': {'in_features': 2},
+        'algo_log_metric': 'accuracy',
+        'val_metric': 'loss_all',
+        'val_metric_decreasing': False,
+        'batch_size': 64,
+        'lr': 0.1,
+        'weight_decay': 0,
+        'n_epochs': 400,
+        'n_groups_per_batch': 3,
+        'groupby_fields': ['group'],
+    },
+ ```
+ 
+ ```python 
+ 'spu_2feature': {
+        'split_scheme': 'official',
+        'model': 'logistic_regression',
+        'loss_function': 'cross_entropy',
+        'optimizer': 'SGD',
+        'model_kwargs': {'in_features': 3},
+        'algo_log_metric': 'accuracy',
+        'val_metric': 'loss_all',
+        'val_metric_decreasing': False,
+        'batch_size': 64,
+        'lr': 0.1,
+        'weight_decay': 0,
+        'n_epochs': 400,
+        'n_groups_per_batch': 3,
+        'groupby_fields': ['group'],
+    },
+```
+ 
+ 7. Now that the code is complete, the following commands can be entered into the terminal to obtain results. 
+ ```
+  python run_expt.py --dataset DATASET --algorithm ALG --root_dir data --progress_bar --log_dir logs/"DATASET"/ALG/run_6_seed_"SEED" --seed SEED  --n_epochs 200
+ ```
+
+DATASET = noisy_2feature, rot_simple, spu_2feature
+ALG = CG, groupDRO
+SEED = 10, 11, 12, 13, 14, 15
+
  
  ## Extensions
  There have been several extensions to this code and paper introduced and implemented by us. The following steps will explain how we have done that and which commands to use to reproduce these resutls.
  
  ### Multiple groups
- 1. A reference to the dataset with 5 rotational groups was added to [get_dataset.py](wilds/get_dataset.py)
+1. Repeat the steps from the qualitative analysis but now for the following file-names:
+```python
+'rot_5group',
+'noisy_5group',
+'spu_5group'
+ ```
+ 
+ 2. The parameters added in step 5 of the qualitative analysis are now the following:
  ```python
- elif dataset == 'rot_5group':
-        from wilds.datasets.rot_5group_dataset import Rot5GroupDataset
-        return Rot5GroupDataset(**dataset_kwargs)
-  ```
+ 'rot_5group': {
+        'split_scheme': 'official',
+        'model': 'logistic_regression',
+        'loss_function': 'cross_entropy',
+        'optimizer': 'SGD',
+        'model_kwargs': {'in_features': 2},
+        'algo_log_metric': 'accuracy',
+        'val_metric': 'loss_all',
+        'val_metric_decreasing': False,
+        'batch_size': 64,
+        'lr': 0.1,
+        'weight_decay': 0,
+        'n_epochs': 400,
+        'n_groups_per_batch': 5,
+        'groupby_fields': ['group'],
+    },
+ ```
+ 
+ ```python
+ 'noisy_5group': {
+        'split_scheme': 'official',
+        'model': 'logistic_regression',
+        'loss_function': 'cross_entropy',
+        'optimizer': 'SGD',
+        'model_kwargs': {'in_features': 2},
+        'algo_log_metric': 'accuracy',
+        'val_metric': 'loss_all',
+        'val_metric_decreasing': False,
+        'batch_size': 64,
+        'lr': 0.1,
+        'weight_decay': 0,
+        'n_epochs': 400,
+        'n_groups_per_batch': 5,
+        'groupby_fields': ['group'],
+    },
+ ```
+ 
+ ```python
+ 'spu_5group': {
+        'split_scheme': 'official',
+        'model': 'logistic_regression',
+        'loss_function': 'cross_entropy',
+        'optimizer': 'SGD',
+        'model_kwargs': {'in_features': 3},
+        'algo_log_metric': 'accuracy',
+        'val_metric': 'loss_all',
+        'val_metric_decreasing': False,
+        'batch_size': 64,
+        'lr': 0.1,
+        'weight_decay': 0,
+        'n_epochs': 400,
+        'n_groups_per_batch': 5,
+        'groupby_fields': ['group'],
+    },
+ ```
+ 
+ 4. aaa
+
+
  
  ### Asymmetric label distribution
  
