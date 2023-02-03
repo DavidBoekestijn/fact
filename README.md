@@ -148,13 +148,13 @@ elif dataset == 'rot_simple':
     },
 ```
  
- 7. Now that the code is complete, the following commands can be entered into the terminal to obtain results. 
+ 6. Now that the code is complete, the following commands can be entered into the terminal to obtain results. 
  ```
   python run_expt.py --dataset DATASET --algorithm ALG --root_dir data --progress_bar --log_dir logs/"DATASET"/ALG/run_6_seed_"SEED" --seed SEED  --n_epochs 200
  ```
 
-DATASET = noisy_2feature, rot_simple, spu_2feature
-ALG = CG, groupDRO
+DATASET = noisy_2feature, rot_simple, spu_2feature <br>
+ALG = CG, groupDRO <br>
 SEED = 10, 11, 12, 13, 14, 15
 
  
@@ -226,11 +226,4 @@ SEED = 10, 11, 12, 13, 14, 15
         'groupby_fields': ['group'],
     },
  ```
- 
- 4. aaa
 
-
- 
- ### Asymmetric label distribution
- 
- ### Upweighted CGD
