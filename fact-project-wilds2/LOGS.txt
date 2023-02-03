@@ -1,0 +1,25 @@
+Goal: make the provided code work
+- README.md is very clear en works, correct links and code alterations are provided
+- Attribute error (metacg_rho) for algorithm CG, solution: comment line 23 in CG.py
+- EOF error when running code, with all algorithms
+Subgoal: testing all datasets
+-> dataset: amazon
+	- EOF error
+-> dataset: civilcomments
+	- EOF error, solution: num_workers=0 in dataset.py
+	- seems to work with ERM
+	(maybe also filename issues, but was resolved before this error could take place)
+-> dataset: poverty
+	- too big
+-> dataset: waterbirds
+	- issue with filenames, solution: change ':' in filename to '_'
+	- seems to work with ERM
+	- seems to work with CG
+-> dataset: fmow
+	- FileNotFound error: 'data\\fmow_v1.1\\rgb_metadata.csv'
+-> dataset: camelyon17
+	- seems to work with ERM
+-> dataset: py150
+	- UnicodeDecode error: 'charmap' codec can't decode byte 0x8f in position 2403: character maps to <undefined>
+-> dataset: colored mnist
+
