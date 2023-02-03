@@ -20,17 +20,10 @@ def get_weight_var(dataset, algo, runs=range(1,7), seeds=range(10,16), shape=(2,
         lin_model = nn.Linear(shape[0], shape[1])
         utils.load(lin_model, model_file, device=torch.device('cpu'))
         vars = []
-        w_norm = torch.linalg.norm(lin_model.weight.data, ord=np.inf).item()
-        b_norm = torch.linalg.norm(lin_model.bias.data, ord=np.inf).item()
-        norm = max([w_norm, b_norm])
-        print(norm)
-        print(w_norm, b_norm)
         for j in range(shape[1]):
             for i in range(shape[0]):
-                vars.append(lin_model.weight[j][i].data.item()/norm)
-            vars.append(lin_model.bias[j].item()/norm)
-
-        print(vars)
+                vars.append(lin_model.weight[j][i].data.item())
+            vars.append(lin_model.bias[j].item())
         max_vars.append(max(vars))
     return np.var(max_vars)
 
@@ -42,4 +35,13 @@ for dataset in ["noisy_2feature", "rot_simple", "spu_2feature"]:
             var = get_weight_var(dataset, algo, shape=(3,2))
         else:
             var = get_weight_var(dataset, algo)
+        print("Variance:", var)
+
+for dataset in ["noisy_5group", "rot_5group", "spu_5group"]:
+    for algo in ["CG", "groupDRO"]:
+        print("Dataset: " + dataset + ", algorithm: "+algo)
+        if dataset=="spu_5group":
+            var = get_weight_var(dataset, algo, shape=(3,2), runs=range(301,307), seeds=range(10,16))
+        else:
+            var = get_weight_var(dataset, algo, runs=range(301,307), seeds=range(10,16))
         print("Variance:", var)
